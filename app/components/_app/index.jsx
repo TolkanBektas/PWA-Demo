@@ -19,14 +19,14 @@ import {SkipNavLink, SkipNavContent} from '@chakra-ui/skip-nav'
 import {CategoriesProvider, CurrencyProvider} from '../../contexts'
 
 // Local Project Components
-import Header from '../../components/header'
+import Header from '../../components/SG/header'
 import OfflineBanner from '../../components/offline-banner'
 import OfflineBoundary from '../../components/offline-boundary'
 import ScrollToTop from '../../components/scroll-to-top'
 import Footer from '../../components/footer'
 import CheckoutHeader from '../../pages/checkout/partials/checkout-header'
 import CheckoutFooter from '../../pages/checkout/partials/checkout-footer'
-import DrawerMenu from '../drawer-menu'
+import DrawerMenu from '../SG/drawer-menu'
 import ListMenu from '../list-menu'
 import {HideOnDesktop, HideOnMobile} from '../responsive'
 
@@ -123,14 +123,15 @@ const App = (props) => {
     }
 
     const onAccountClick = () => {
-        // Link to account page for registered customer, open auth modal otherwise
+        // Link to account page for registered customer, redirect to login page otherwise
         if (customer.isRegistered) {
             const path = buildUrl('/account')
             history.push(path)
         } else {
-            // if they already are at the login page, do not show login modal
+            // if they already are at the login page, do not redirect
             if (new RegExp(`^/login$`).test(location.pathname)) return
-            authModal.onOpen()
+            const path = buildPathWithUrlConfig('/login', configValues)
+            history.push(path)
         }
     }
 
