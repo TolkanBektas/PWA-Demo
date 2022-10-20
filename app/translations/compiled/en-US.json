@@ -1267,6 +1267,12 @@
       "value": "Account Details"
     }
   ],
+  "global.account.header.link.account_details": [
+    {
+      "type": 0,
+      "value": "My Account"
+    }
+  ],
   "global.account.link.addresses": [
     {
       "type": 0,
@@ -1277,6 +1283,12 @@
     {
       "type": 0,
       "value": "Order History"
+    }
+  ],
+  "global.account.header.link.order_history": [
+    {
+      "type": 0,
+      "value": "Check Order"
     }
   ],
   "global.account.link.payment_methods": [

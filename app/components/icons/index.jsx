@@ -55,6 +55,7 @@ import '../../assets/svg/visibility-off.svg'
 import '../../assets/svg/heart.svg'
 import '../../assets/svg/heart-solid.svg'
 import '../../assets/svg/close.svg'
+import '../../assets/svg/SG/user-sg.svg'
 
 // For non-square SVGs, we can use the symbol data from the import to set the
 // proper viewBox attribute on the Icon wrapper.
@@ -158,3 +159,4 @@ export const VisibilityOffIcon = icon('visibility-off')
 export const HeartIcon = icon('heart')
 export const HeartSolidIcon = icon('heart-solid')
 export const CloseIcon = icon('close')
+export const UserIconSg = icon('user-sg')

@@ -121,7 +121,7 @@
     "defaultMessage": "No Wishlist Items"
   },
   "account_wishlist.title.wishlist": {
-    "defaultMessage": "Wishlist"
+    "defaultMessage": "Wish List"
   },
   "action_card.action.edit": {
     "defaultMessage": "Edit"
@@ -569,6 +569,15 @@
   },
   "header.popover.action.log_out": {
     "defaultMessage": "Log out"
+  },
+  "header.popover.action.login_register": {
+    "defaultMessage": "Login / Register"
+  },
+  "header.popover.action.login": {
+    "defaultMessage": "Login"
+  },
+  "header.popover.action.register": {
+    "defaultMessage": "Register"
   },
   "header.popover.title.my_account": {
     "defaultMessage": "My Account"

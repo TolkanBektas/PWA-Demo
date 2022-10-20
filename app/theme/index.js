@@ -20,6 +20,7 @@ import Alert from './components/base/alert'
 import Accordion from './components/base/accordion'
 import Badge from './components/base/badge'
 import Button from './components/base/button'
+import Link from './components/base/SG/link'
 import Checkbox from './components/base/checkbox'
 import Container from './components/base/container'
 import Drawer from './components/base/drawer'
@@ -68,6 +69,7 @@ const overrides = {
         Alert,
         Badge,
         Button,
+        Link,
         Checkbox,
         Container,
         Drawer,
