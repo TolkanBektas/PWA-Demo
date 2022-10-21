@@ -11,6 +11,8 @@ import {HeartIcon, HeartSolidIcon} from '../icons'
 
 // Components
 import {
+    Grid,
+    GridItem,
     AspectRatio,
     Box,
     Skeleton as ChakraSkeleton,
@@ -63,19 +65,16 @@ const ProductTile = (props) => {
         isFavourite,
         onFavouriteToggle,
         dynamicImageProps,
+        productView,
         ...rest
     } = props
-    const {currency, image, price, productId} = product
+    const {image, productId} = product
     // ProductTile is used by two components, RecommendedProducts and ProductList.
     // RecommendedProducts provides a localized product name as `name` and non-localized product
     // name as `productName`. ProductList provides a localized name as `productName` and does not
     // use the `name` property.
-    const localizedProductName = product.name ?? product.productName
 
-    const {currency: activeCurrency} = useCurrency()
-    const [isFavouriteLoading, setFavouriteLoading] = useState(false)
     const styles = useMultiStyleConfig('ProductTile')
-
     return (
         <Link
             data-testid="product-tile"
@@ -83,55 +82,34 @@ const ProductTile = (props) => {
             to={productUrlBuilder({id: productId}, intl.local)}
             {...rest}
         >
-            <Box {...styles.imageWrapper}>
-                <AspectRatio {...styles.image}>
-                    <DynamicImage
-                        src={`${image.disBaseLink || image.link}[?sw={width}&q=60]`}
-                        widths={dynamicImageProps?.widths}
-                        imageProps={{
-                            alt: image.alt,
-                            ...dynamicImageProps?.imageProps
-                        }}
+            {productView == 'grid' ? (
+                <Box>
+                    <ProductImage
+                        image={image}
+                        enableFavourite={enableFavourite}
+                        isFavourite={isFavourite}
+                        onFavouriteToggle={onFavouriteToggle}
+                        dynamicImageProps={dynamicImageProps}
                     />
-                </AspectRatio>
-
-                {enableFavourite && (
-                    <Box
-                        onClick={(e) => {
-                            // stop click event from bubbling
-                            // to avoid user from clicking the underlying
-                            // product while the favourite icon is disabled
-                            e.preventDefault()
-                        }}
-                    >
-                        <IconButtonWithRegistration
-                            aria-label={intl.formatMessage({
-                                id: 'product_tile.assistive_msg.wishlist',
-                                defaultMessage: 'Wishlist'
-                            })}
-                            icon={isFavourite ? <HeartSolidIcon /> : <HeartIcon />}
-                            {...styles.favIcon}
-                            disabled={isFavouriteLoading}
-                            onClick={async () => {
-                                setFavouriteLoading(true)
-                                await onFavouriteToggle(!isFavourite)
-                                setFavouriteLoading(false)
-                            }}
+                    {/* Title */}
+                    <ProductInfo product={product} />
+                </Box>
+            ) : (
+                <Grid templateColumns="repeat(10, 1fr)">
+                    <GridItem colSpan={3}>
+                        <ProductImage
+                            image={image}
+                            enableFavourite={enableFavourite}
+                            isFavourite={isFavourite}
+                            onFavouriteToggle={onFavouriteToggle}
+                            dynamicImageProps={dynamicImageProps}
                         />
-                    </Box>
-                )}
-            </Box>
-
-            {/* Title */}
-            <Text {...styles.title}>{localizedProductName}</Text>
-
-            {/* Price */}
-            <Text {...styles.price}>
-                {intl.formatNumber(price, {
-                    style: 'currency',
-                    currency: currency || activeCurrency
-                })}
-            </Text>
+                    </GridItem>
+                    <GridItem colSpan={7}>
+                        <ProductInfo product={product} />
+                    </GridItem>
+                </Grid>
+            )}
         </Link>
     )
 }
@@ -155,7 +133,6 @@ ProductTile.propTypes = {
         // (from Shopper Products `getProducts` endpoint), but is not present when `product` is
         // provided by a ProductList component.
         // See: https://developer.salesforce.com/docs/commerce/commerce-api/references/shopper-products?meta=getProducts
-        name: PropTypes.string,
         // `productName` is localized when provided by a ProductList component (from Shopper Search
         // `productSearch` endpoint), but is NOT localized when provided by a RecommendedProducts
         // component (from Einstein Recommendations `getRecommendations` endpoint).
@@ -163,7 +140,9 @@ ProductTile.propTypes = {
         // See: https://developer.salesforce.com/docs/commerce/einstein-api/references/einstein-api-quick-start-guide?meta=getRecommendations
         // Note: useEinstein() transforms snake_case property names from the API response to camelCase
         productName: PropTypes.string,
-        productId: PropTypes.string
+        productId: PropTypes.string,
+        // `c_colors` gets the color variants for the products which includes the value, name and swatch image
+        c_colors: PropTypes.object
     }),
     /**
      * Enable adding/removing product as a favourite.
@@ -179,7 +158,104 @@ ProductTile.propTypes = {
      * interacts with favourite icon/button.
      */
     onFavouriteToggle: PropTypes.func,
-    dynamicImageProps: PropTypes.object
+    dynamicImageProps: PropTypes.object,
+    productView: PropTypes.string
 }
 
 export default ProductTile
+
+const ProductImage = ({
+    image,
+    enableFavourite,
+    isFavourite,
+    onFavouriteToggle,
+    dynamicImageProps
+}) => {
+    const [isFavouriteLoading, setFavouriteLoading] = useState(false)
+    const styles = useMultiStyleConfig('ProductTile')
+    const intl = useIntl()
+
+    return (
+        <Box {...styles.imageWrapper}>
+            <AspectRatio {...styles.image}>
+                <DynamicImage
+                    src={`${image.disBaseLink || image.link}[?sw={width}&q=60]`}
+                    widths={dynamicImageProps?.widths}
+                    imageProps={{
+                        alt: image.alt,
+                        ...dynamicImageProps?.imageProps
+                    }}
+                />
+            </AspectRatio>
+
+            {enableFavourite && (
+                <Box
+                    onClick={(e) => {
+                        // stop click event from bubbling
+                        // to avoid user from clicking the underlying
+                        // product while the favourite icon is disabled
+                        e.preventDefault()
+                    }}
+                >
+                    <IconButtonWithRegistration
+                        aria-label={intl.formatMessage({
+                            id: 'product_tile.assistive_msg.wishlist',
+                            defaultMessage: 'Wishlist'
+                        })}
+                        icon={isFavourite ? <HeartSolidIcon /> : <HeartIcon />}
+                        {...styles.favIcon}
+                        disabled={isFavouriteLoading}
+                        onClick={async () => {
+                            setFavouriteLoading(true)
+                            await onFavouriteToggle(!isFavourite)
+                            setFavouriteLoading(false)
+                        }}
+                    />
+                </Box>
+            )}
+        </Box>
+    )
+}
+
+ProductImage.propTypes = {
+    image: PropTypes.shape({
+        alt: PropTypes.string,
+        disBaseLink: PropTypes.string,
+        link: PropTypes.string
+    }),
+    enableFavourite: PropTypes.bool,
+    isFavourite: PropTypes.bool,
+    onFavouriteToggle: PropTypes.func,
+    dynamicImageProps: PropTypes.object
+}
+
+const ProductInfo = ({product}) => {
+    const localizedProductName = product.name ?? product.productName
+    const styles = useMultiStyleConfig('ProductTile')
+    const intl = useIntl()
+    const {currency: activeCurrency} = useCurrency()
+    const {currency, price} = product
+    return (
+        <Box>
+            {/* Title */}
+            <Text {...styles.title}>{localizedProductName}</Text>
+
+            {/* Price */}
+            <Text {...styles.price}>
+                {intl.formatNumber(price, {
+                    style: 'currency',
+                    currency: currency || activeCurrency
+                })}
+            </Text>
+        </Box>
+    )
+}
+ProductInfo.propTypes = {
+    product: PropTypes.shape({
+        currency: PropTypes.string,
+        price: PropTypes.number,
+        name: PropTypes.string,
+        productName: PropTypes.string,
+        productId: PropTypes.string
+    })
+}
