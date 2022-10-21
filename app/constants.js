@@ -83,3 +83,8 @@ export const TOAST_MESSAGE_REMOVED_FROM_WISHLIST = defineMessage({
     id: 'global.info.removed_from_wishlist',
     defaultMessage: 'Item removed from wishlist'
 })
+
+export const FONT_SIZES = ['lg', 'md', 'md']
+export const FONT_WEIGHTS = ['semibold', 'semibold', 'regular']
+export const PHONE_DRAWER_SIZE = 'xs'
+export const TABLET_DRAWER_SIZE = 'lg'

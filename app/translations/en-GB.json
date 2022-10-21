@@ -567,6 +567,9 @@
   "header.field.placeholder.search_for_products": {
     "defaultMessage": "Search for products..."
   },
+  "header.field.placeholder.search_for_products_sitegenesis": {
+    "defaultMessage": "Enter Keyword or Item No."
+  },
   "header.popover.action.log_out": {
     "defaultMessage": "Log out"
   },

@@ -36,7 +36,7 @@ import Popover from './components/base/popover'
 // Project Component style overrides
 import App from './components/project/_app'
 import Breadcrumb from './components/project/breadcrumb'
-import Header from './components/project/header'
+import Header from './components/project/SG/header'
 import ListMenu from './components/project/list-menu'
 import Footer from './components/project/footer'
 import CheckoutFooter from './components/project/checkout-footer'
