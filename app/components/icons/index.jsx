@@ -67,6 +67,7 @@ import MastercardSymbol from '../../assets/svg/cc-mastercard.svg'
 import PaypalSymbol from '../../assets/svg/paypal.svg'
 import SocialPinterestSymbol from '../../assets/svg/social-pinterest.svg'
 import VisaSymbol from '../../assets/svg/cc-visa.svg'
+import SgLogoSymbol from '../../assets/svg/sg-logo.svg'
 
 // TODO: We're hardcoding the `viewBox` for these imported SVGs temporarily as the
 // SVG loader plugin is not properly providing us the symbol data on the client side.
@@ -79,7 +80,7 @@ MastercardSymbol.viewBox = MastercardSymbol.viewBox || '0 0 38 22'
 PaypalSymbol.viewBox = PaypalSymbol.viewBox || '0 0 80 20'
 SocialPinterestSymbol.viewBox = SocialPinterestSymbol.viewBox || '0 0 21 20'
 VisaSymbol.viewBox = VisaSymbol.viewBox || '0 0 38 22'
-
+SgLogoSymbol.viewBox = SgLogoSymbol.viewBox || '0 0 46 32'
 /**
  * A helper for creating a Chakra-wrapped icon from our own SVG imports via sprite sheet.
  * @param {string} name - the filename of the imported svg (does not include extension)
@@ -158,3 +159,4 @@ export const VisibilityOffIcon = icon('visibility-off')
 export const HeartIcon = icon('heart')
 export const HeartSolidIcon = icon('heart-solid')
 export const CloseIcon = icon('close')
+export const SgLogo = icon('sg-logo', {viewBox: SgLogoSymbol.viewBox})

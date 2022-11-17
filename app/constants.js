@@ -83,3 +83,11 @@ export const TOAST_MESSAGE_REMOVED_FROM_WISHLIST = defineMessage({
     id: 'global.info.removed_from_wishlist',
     defaultMessage: 'Item removed from wishlist'
 })
+
+// The FONT_SIZES and FONT_WEIGHTS constants are used to control the styling for
+// the accordion buttons as their current depth. In the below definition we assign
+// values for depths 0 - 3, any depth deeper than that will use the default styling.
+export const FONT_SIZES = ['lg', 'md', 'md']
+export const FONT_WEIGHTS = ['semibold', 'semibold', 'regular']
+export const PHONE_DRAWER_SIZE = 'xs'
+export const TABLET_DRAWER_SIZE = 'lg'
