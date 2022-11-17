@@ -105,7 +105,7 @@ const ProductTile = (props) => {
                             dynamicImageProps={dynamicImageProps}
                         />
                     </GridItem>
-                    <GridItem colSpan={7}>
+                    <GridItem colSpan={7} pl={3}>
                         <ProductInfo product={product} />
                     </GridItem>
                 </Grid>

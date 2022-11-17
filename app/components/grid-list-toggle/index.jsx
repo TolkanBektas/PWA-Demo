@@ -35,7 +35,7 @@ const GridListToggle = (props) => {
                 return (
                     <Box key={item} as="label">
                         <input {...input} />
-                        <Box {...checkbox} _checked={{fill: 'gray'}}>
+                        <Box cursor="pointer" {...checkbox} _checked={{fill: 'gray'}}>
                             {item == 'list' ? (
                                 <ListViewIcon boxSize={8} />
                             ) : (

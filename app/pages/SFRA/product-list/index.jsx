@@ -246,6 +246,12 @@ const ProductList = (props) => {
             layerStyle="page"
             paddingTop={{base: 6, lg: 8}}
             {...rest}
+            maxW="1200px"
+            my={0}
+            mx="auto"
+            w="100%"
+            py={0}
+            px={3}
         >
             <Helmet>
                 <title>{category?.pageTitle}</title>
@@ -284,7 +290,7 @@ const ProductList = (props) => {
                         </Box>
                         <Box paddingTop={'45px'}>
                             <HStack>
-                                <Box paddingTop={'10px'}>
+                                <Box>
                                     <GridListToggle
                                         productView={productView}
                                         changeProductView={(value) => setProductView(value)}
@@ -310,7 +316,7 @@ const ProductList = (props) => {
                                     productSearchResult={productSearchResult}
                                     isLoading={isLoading}
                                 />
-                                <Box flex={1} paddingTop={'55px'}>
+                                <Box flex={1} paddingTop={'50px'}>
                                     <GridListToggle
                                         productView={productView}
                                         changeProductView={(value) => setProductView(value)}
