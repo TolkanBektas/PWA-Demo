@@ -26,7 +26,7 @@ import ScrollToTop from '../../components/scroll-to-top'
 import Footer from '../../components/footer'
 import CheckoutHeader from '../../pages/checkout/partials/checkout-header'
 import CheckoutFooter from '../../pages/checkout/partials/checkout-footer'
-import DrawerMenu from '../drawer-menu'
+import DrawerMenu from '../SG/drawer-menu'
 import ListMenu from '../list-menu'
 import {HideOnDesktop, HideOnMobile} from '../responsive'
 
