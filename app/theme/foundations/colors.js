@@ -164,7 +164,25 @@ const colors = {
         700: '#9602C7',
         800: '#730394',
         900: '#520066'
-    }
+    },
+    // SFRA colors base
+    blueSfra: '#0070d2',
+    greenSfra: '#008827',
+    primary: '#00a1e0',
+    redSfra: '#c00',
+    success: '#008827',
+    danger: '#c00',
+    lightBlue: '#7ed0ee',
+    grey1: '#f9f9f9',
+    grey2: '#eee',
+    grey3: '#ccc',
+    grey4: '#999',
+    grey5: '#666',
+    grey6: '#444',
+    grey7: '#222',
+    grey8: '#333',
+    greyTransparent1: 'rgba(0, 0, 0, 0.65)',
+    greyTransparent2: 'rgba(0, 0, 0, 0.25)'
 }
 
 export default colors

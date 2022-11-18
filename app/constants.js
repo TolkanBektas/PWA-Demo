@@ -14,6 +14,7 @@ export const DEFAULT_LIMIT_VALUES = [25, 50, 100] // Page sizes
 export const RECENT_SEARCH_LIMIT = 5
 export const RECENT_SEARCH_KEY = 'recent-search-key'
 export const RECENT_SEARCH_MIN_LENGTH = 3
+export const RECENT_SEARCH_SUGGESTION_LIMIT = 3
 
 // Constants for the Homepage's Shop Products section.
 export const HOME_SHOP_PRODUCTS_CATEGORY_ID = 'newarrivals'
