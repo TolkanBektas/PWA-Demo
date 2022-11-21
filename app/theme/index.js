@@ -8,9 +8,10 @@ import {extendTheme} from '@chakra-ui/react'
 
 // Foundational style overrides
 import styles from './foundations/styles'
-import colors from './foundations/colors'
+import colors from './foundations/SFRA/colors'
 import gradients from './foundations/gradients'
-import sizes from './foundations/sizes'
+import sizes from './foundations/SFRA/sizes'
+import breakpoints from './foundations/SFRA/breakpoints'
 import space from './foundations/space'
 import layerStyles from './foundations/layerStyles'
 import shadows from './foundations/shadows'
@@ -19,7 +20,7 @@ import shadows from './foundations/shadows'
 import Alert from './components/base/alert'
 import Accordion from './components/base/accordion'
 import Badge from './components/base/badge'
-import Button from './components/base/button'
+import Button from './components/base/SFRA/button'
 import Checkbox from './components/base/checkbox'
 import Container from './components/base/container'
 import Drawer from './components/base/drawer'
@@ -31,17 +32,18 @@ import Radio from './components/base/radio'
 import Select from './components/base/select'
 import Skeleton from './components/base/skeleton'
 import Tooltip from './components/base/tooltip'
-import Popover from './components/base/popover'
+import Popover from './components/base/SFRA/popover'
 
 // Project Component style overrides
 import App from './components/project/_app'
 import Breadcrumb from './components/project/breadcrumb'
-import Header from './components/project/header'
+import Header from './components/project/SFRA/header'
 import ListMenu from './components/project/list-menu'
 import Footer from './components/project/footer'
 import CheckoutFooter from './components/project/checkout-footer'
 import LinksList from './components/project/links-list'
 import DrawerMenu from './components/project/drawer-menu'
+import SfraDrawerMenu from './components/project/SFRA/drawer-menu'
 import NestedAccordion from './components/project/nested-accordion'
 import LocaleSelector from './components/project/locale-selector'
 import OfflineBanner from './components/project/offline-banner'
@@ -58,6 +60,7 @@ const overrides = {
     styles,
     layerStyles,
     colors,
+    breakpoints,
     sizes,
     space,
     gradients,
@@ -90,6 +93,7 @@ const overrides = {
         LinksList,
         ListMenu,
         DrawerMenu,
+        SfraDrawerMenu,
         NestedAccordion,
         LocaleSelector,
         OfflineBanner,

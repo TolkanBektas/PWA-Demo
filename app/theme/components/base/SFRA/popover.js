@@ -16,6 +16,7 @@ export default {
         small: {},
         normal: {
             popper: {
+                width: 286,
                 borderRadius: 0
             },
             header: {

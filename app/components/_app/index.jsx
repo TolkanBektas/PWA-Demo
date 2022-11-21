@@ -19,14 +19,14 @@ import {SkipNavLink, SkipNavContent} from '@chakra-ui/skip-nav'
 import {CategoriesProvider, CurrencyProvider} from '../../contexts'
 
 // Local Project Components
-import Header from '../../components/header'
+import Header from '../../components/SFRA/header'
 import OfflineBanner from '../../components/offline-banner'
 import OfflineBoundary from '../../components/offline-boundary'
 import ScrollToTop from '../../components/scroll-to-top'
 import Footer from '../../components/footer'
 import CheckoutHeader from '../../pages/checkout/partials/checkout-header'
 import CheckoutFooter from '../../pages/checkout/partials/checkout-footer'
-import DrawerMenu from '../drawer-menu'
+import DrawerMenu from '../SFRA/drawer-menu'
 import ListMenu from '../list-menu'
 import {HideOnDesktop, HideOnMobile} from '../responsive'
 
@@ -35,6 +35,8 @@ import useShopper from '../../commerce-api/hooks/useShopper'
 import useCustomer from '../../commerce-api/hooks/useCustomer'
 import {AuthModal, useAuthModal} from '../../hooks/use-auth-modal'
 import {AddToCartModalProvider} from '../../hooks/use-add-to-cart-modal'
+import useSite from '../../hooks/use-site'
+import useLocale from '../../hooks/use-locale'
 import useWishlist from '../../hooks/use-wishlist'
 
 // Localization
@@ -42,12 +44,12 @@ import {IntlProvider} from 'react-intl'
 
 // Others
 import {watchOnlineStatus, flatten} from '../../utils/utils'
+import {homeUrlBuilder, getPathWithLocale, buildPathWithUrlConfig} from '../../utils/url'
 import {getTargetLocale, fetchTranslations} from '../../utils/locale'
 import {DEFAULT_SITE_TITLE, HOME_HREF, THEME_COLOR} from '../../constants'
 
 import Seo from '../seo'
 import {resolveSiteFromUrl} from '../../utils/site-utils'
-import useMultiSite from '../../hooks/use-multi-site'
 
 const DEFAULT_NAV_DEPTH = 3
 const DEFAULT_ROOT_CATEGORY = 'root'
@@ -61,10 +63,17 @@ const App = (props) => {
     const location = useLocation()
     const authModal = useAuthModal()
     const customer = useCustomer()
-    const {site, locale, buildUrl} = useMultiSite()
+
+    const site = useSite()
+    const locale = useLocale()
 
     const [isOnline, setIsOnline] = useState(true)
     const styles = useStyleConfig('App')
+
+    const configValues = {
+        locale: locale.alias || locale.id,
+        site: site.alias || site.id
+    }
 
     const {isOpen, onOpen, onClose} = useDisclosure()
 
@@ -106,8 +115,7 @@ const App = (props) => {
 
     const onLogoClick = () => {
         // Goto the home page.
-        const path = buildUrl(HOME_HREF)
-
+        const path = homeUrlBuilder(HOME_HREF, {locale, site})
         history.push(path)
 
         // Close the drawer.
@@ -115,7 +123,7 @@ const App = (props) => {
     }
 
     const onCartClick = () => {
-        const path = buildUrl('/cart')
+        const path = buildPathWithUrlConfig('/cart', configValues)
         history.push(path)
 
         // Close the drawer.
@@ -123,19 +131,20 @@ const App = (props) => {
     }
 
     const onAccountClick = () => {
-        // Link to account page for registered customer, open auth modal otherwise
+        // Link to account page for registered customer, redirect to login page otherwise
         if (customer.isRegistered) {
-            const path = buildUrl('/account')
+            const path = buildPathWithUrlConfig('/account', configValues)
             history.push(path)
         } else {
-            // if they already are at the login page, do not show login modal
+            // if they already are at the login page, do not redirect
             if (new RegExp(`^/login$`).test(location.pathname)) return
-            authModal.onOpen()
+            const path = buildPathWithUrlConfig('/login', configValues)
+            history.push(path)
         }
     }
 
     const onWishlistClick = () => {
-        const path = buildUrl('/account/wishlist')
+        const path = buildPathWithUrlConfig('/account/wishlist', configValues)
         history.push(path)
     }
 
@@ -176,7 +185,9 @@ const App = (props) => {
                                 <link
                                     rel="alternate"
                                     hrefLang={locale.id.toLowerCase()}
-                                    href={`${appOrigin}${buildUrl(location.pathname)}`}
+                                    href={`${appOrigin}${getPathWithLocale(locale.id, {
+                                        location
+                                    })}`}
                                     key={locale.id}
                                 />
                             ))}
@@ -184,7 +195,9 @@ const App = (props) => {
                             <link
                                 rel="alternate"
                                 hrefLang={site.l10n.defaultLocale.slice(0, 2)}
-                                href={`${appOrigin}${buildUrl(location.pathname)}`}
+                                href={`${appOrigin}${getPathWithLocale(site.l10n.defaultLocale, {
+                                    location
+                                })}`}
                             />
                             {/* A wider fallback for user locales that the app does not support */}
                             <link rel="alternate" hrefLang="x-default" href={`${appOrigin}/`} />
@@ -210,15 +223,11 @@ const App = (props) => {
                                                 onClose={onClose}
                                                 onLogoClick={onLogoClick}
                                                 root={allCategories[DEFAULT_ROOT_CATEGORY]}
-                                                locale={locale}
                                             />
                                         </HideOnDesktop>
 
                                         <HideOnMobile>
-                                            <ListMenu
-                                                root={allCategories[DEFAULT_ROOT_CATEGORY]}
-                                                locale={locale}
-                                            />
+                                            <ListMenu root={allCategories[DEFAULT_ROOT_CATEGORY]} />
                                         </HideOnMobile>
                                     </Header>
                                 ) : (
