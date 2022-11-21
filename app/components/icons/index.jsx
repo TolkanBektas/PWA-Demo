@@ -55,6 +55,8 @@ import '../../assets/svg/visibility-off.svg'
 import '../../assets/svg/heart.svg'
 import '../../assets/svg/heart-solid.svg'
 import '../../assets/svg/close.svg'
+import BrandLogoSymbolFull from '../../assets/svg/SFRA/sfra-logo.svg'
+import BrandLogoSymbolSmall from '../../assets/svg/SFRA/sfra-logo-small.svg'
 
 // For non-square SVGs, we can use the symbol data from the import to set the
 // proper viewBox attribute on the Icon wrapper.
@@ -67,6 +69,7 @@ import MastercardSymbol from '../../assets/svg/cc-mastercard.svg'
 import PaypalSymbol from '../../assets/svg/paypal.svg'
 import SocialPinterestSymbol from '../../assets/svg/social-pinterest.svg'
 import VisaSymbol from '../../assets/svg/cc-visa.svg'
+import ArrowDown from '../SFRA/arrow-down'
 
 // TODO: We're hardcoding the `viewBox` for these imported SVGs temporarily as the
 // SVG loader plugin is not properly providing us the symbol data on the client side.
@@ -79,7 +82,8 @@ MastercardSymbol.viewBox = MastercardSymbol.viewBox || '0 0 38 22'
 PaypalSymbol.viewBox = PaypalSymbol.viewBox || '0 0 80 20'
 SocialPinterestSymbol.viewBox = SocialPinterestSymbol.viewBox || '0 0 21 20'
 VisaSymbol.viewBox = VisaSymbol.viewBox || '0 0 38 22'
-
+BrandLogoSymbolFull.viewBox = BrandLogoSymbolFull.viewBox || '0 0 226 55'
+BrandLogoSymbolSmall.viewBox = BrandLogoSymbolSmall.viewBox || '0 0 111 77'
 /**
  * A helper for creating a Chakra-wrapped icon from our own SVG imports via sprite sheet.
  * @param {string} name - the filename of the imported svg (does not include extension)
@@ -110,10 +114,12 @@ export const AmexIcon = icon('cc-amex', {viewBox: AmexSymbol.viewBox})
 export const AlertIcon = icon('alert')
 export const AccountIcon = icon('account')
 export const BrandLogo = icon('brand-logo', {viewBox: BrandLogoSymbol.viewBox})
+export const BrandLogoSmall = icon('sfra-logo-small', {viewBox: BrandLogoSymbolSmall.viewBox})
+export const BrandLogoFull = icon('sfra-logo', {viewBox: BrandLogoSymbolFull.viewBox})
 export const BasketIcon = icon('basket')
 export const CheckIcon = icon('check')
 export const CheckCircleIcon = icon('check-circle')
-export const ChevronDownIcon = icon('chevron-down')
+export const ChevronDownIcon = ArrowDown
 export const ChevronLeftIcon = icon('chevron-left')
 export const ChevronRightIcon = icon('chevron-right')
 export const ChevronUpIcon = icon('chevron-up')

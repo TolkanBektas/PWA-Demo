@@ -1267,6 +1267,12 @@
       "value": "Account Details"
     }
   ],
+  "global.account.header.link.account_details": [
+    {
+      "type": 0,
+      "value": "My Account"
+    }
+  ],
   "global.account.link.addresses": [
     {
       "type": 0,
@@ -1277,6 +1283,12 @@
     {
       "type": 0,
       "value": "Order History"
+    }
+  ],
+  "global.account.header.link.order_history": [
+    {
+      "type": 0,
+      "value": "My Orders"
     }
   ],
   "global.account.link.payment_methods": [
@@ -1380,13 +1392,13 @@
   "header.field.placeholder.search_for_products": [
     {
       "type": 0,
-      "value": "Search for products..."
+      "value": "Search (keywords,etc)"
     }
   ],
   "header.popover.action.log_out": [
     {
       "type": 0,
-      "value": "Log out"
+      "value": "Logout"
     }
   ],
   "header.popover.title.my_account": [
