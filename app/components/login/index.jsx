@@ -12,6 +12,7 @@ import {Alert, Box, Button, Stack, Text} from '@chakra-ui/react'
 import {AlertIcon, BrandLogo} from '../icons'
 import LoginFields from '../../components/forms/login-fields'
 import {noop} from '../../utils/utils'
+import CheckOrder from '../SFRA/check-order'
 
 const LoginForm = ({submitForm, clickForgotPassword = noop, clickCreateAccount = noop, form}) => {
     return (
@@ -80,6 +81,7 @@ const LoginForm = ({submitForm, clickForgotPassword = noop, clickCreateAccount =
                     </Stack>
                 </Stack>
             </form>
+            <CheckOrder/>
         </Fragment>
     )
 }
